@@ -1,0 +1,278 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications alt+T"
+    - generic [ref=e3]:
+      - complementary [ref=e4]:
+        - generic [ref=e6]:
+          - img [ref=e8]
+          - generic [ref=e13]:
+            - heading "SAVACO APP" [level=1] [ref=e14]
+            - paragraph [ref=e15]: Quản lý vận tải
+        - navigation [ref=e16]:
+          - list [ref=e17]:
+            - listitem [ref=e18]:
+              - link "Bảng Điều Khiển" [ref=e19] [cursor=pointer]:
+                - /url: /
+                - img [ref=e21]
+                - generic [ref=e26]: Bảng Điều Khiển
+            - listitem [ref=e27]:
+              - link "Danh Mục Xe" [ref=e28] [cursor=pointer]:
+                - /url: /vehicles
+                - img [ref=e30]
+                - generic [ref=e35]: Danh Mục Xe
+            - listitem [ref=e36]:
+              - link "Danh Mục Tài Xế" [ref=e37] [cursor=pointer]:
+                - /url: /drivers
+                - img [ref=e39]
+                - generic [ref=e44]: Danh Mục Tài Xế
+            - listitem [ref=e45]:
+              - link "Danh Mục Tuyến Đường" [ref=e46] [cursor=pointer]:
+                - /url: /routes
+                - img [ref=e48]
+                - generic [ref=e52]: Danh Mục Tuyến Đường
+            - listitem [ref=e53]:
+              - link "Danh Mục Khách Hàng" [ref=e54] [cursor=pointer]:
+                - /url: /customers
+                - img [ref=e56]
+                - generic [ref=e60]: Danh Mục Khách Hàng
+            - listitem [ref=e61]:
+              - link "Nhập Liệu Doanh Thu" [ref=e62] [cursor=pointer]:
+                - /url: /trips
+                - img [ref=e64]
+                - generic [ref=e68]: Nhập Liệu Doanh Thu
+            - listitem [ref=e69]:
+              - link "Nhập Liệu Chi Phí" [ref=e70] [cursor=pointer]:
+                - /url: /expenses
+                - img [ref=e72]
+                - generic [ref=e75]: Nhập Liệu Chi Phí
+            - listitem [ref=e76]:
+              - link "Điều Phối Vận Tải" [ref=e77] [cursor=pointer]:
+                - /url: /dispatch
+                - img [ref=e79]
+                - generic [ref=e81]: Điều Phối Vận Tải
+            - listitem [ref=e82]:
+              - link "Bảo Trì – Sửa Chữa" [ref=e83] [cursor=pointer]:
+                - /url: /maintenance
+                - img [ref=e85]
+                - generic [ref=e87]: Bảo Trì – Sửa Chữa
+            - listitem [ref=e88]:
+              - link "Báo Cáo Tổng Hợp" [ref=e89] [cursor=pointer]:
+                - /url: /reports
+                - img [ref=e91]
+                - generic [ref=e93]: Báo Cáo Tổng Hợp
+            - listitem [ref=e94]:
+              - link "Cài Đặt Cảnh Báo" [ref=e95] [cursor=pointer]:
+                - /url: /alerts
+                - img [ref=e97]
+                - generic [ref=e100]: Cài Đặt Cảnh Báo
+        - generic [ref=e101]:
+          - paragraph [ref=e103]: "Role: viewer"
+          - button "Thu gọn" [ref=e104] [cursor=pointer]:
+            - img
+            - generic [ref=e105]: Thu gọn
+      - generic [ref=e106]:
+        - banner [ref=e107]:
+          - generic [ref=e108]:
+            - link [ref=e109] [cursor=pointer]:
+              - /url: /alerts
+              - img
+            - button "User" [ref=e110] [cursor=pointer]:
+              - generic [ref=e111]:
+                - img
+              - generic [ref=e112]: User
+        - main [ref=e113]:
+          - generic [ref=e114]:
+            - generic [ref=e116]:
+              - heading "Bảng Điều Khiển PRO" [level=1] [ref=e117]
+              - paragraph [ref=e118]: Tổng quan hoạt động vận tải - Tháng 2/2026
+            - generic [ref=e119]:
+              - tablist [ref=e121]:
+                - tab "Tổng quan" [selected] [ref=e122] [cursor=pointer]
+                - tab "Doanh Thu" [ref=e123] [cursor=pointer]
+                - tab "Chi Phí" [ref=e124] [cursor=pointer]
+                - tab "Chuyến Đi" [ref=e125] [cursor=pointer]
+                - tab "Hiệu Suất" [ref=e126] [cursor=pointer]
+                - tab "Cảnh Báo" [ref=e127] [cursor=pointer]
+              - tabpanel "Tổng quan" [ref=e129]:
+                - generic [ref=e130]:
+                  - generic [ref=e132]:
+                    - generic [ref=e133]:
+                      - img [ref=e134]
+                      - text: "Thời gian:"
+                    - combobox [ref=e136] [cursor=pointer]:
+                      - generic: Tháng này
+                      - img [ref=e137]
+                  - generic [ref=e139]:
+                    - generic [ref=e141] [cursor=pointer]:
+                      - generic [ref=e142]:
+                        - generic [ref=e143]:
+                          - paragraph [ref=e144]: Tổng doanh thu
+                          - paragraph [ref=e145]: 0 ₫
+                        - img [ref=e147]
+                      - generic [ref=e150]:
+                        - img [ref=e151]
+                        - generic [ref=e152]: 0%
+                        - generic [ref=e153]: so với tháng trước
+                    - generic [ref=e155] [cursor=pointer]:
+                      - generic [ref=e156]:
+                        - generic [ref=e157]:
+                          - paragraph [ref=e158]: Lợi nhuận
+                          - paragraph [ref=e159]: 0 ₫
+                        - img [ref=e161]
+                      - generic [ref=e164]:
+                        - img [ref=e165]
+                        - generic [ref=e166]: 0%
+                        - generic [ref=e167]: so với tháng trước
+                    - generic [ref=e169]:
+                      - generic [ref=e170]:
+                        - paragraph [ref=e171]: Chuyến hàng
+                        - paragraph [ref=e172]: "0"
+                        - paragraph [ref=e173]: 0 đang thực hiện
+                      - img [ref=e175]
+                    - generic [ref=e180]:
+                      - generic [ref=e181]:
+                        - paragraph [ref=e182]: Hệ thống
+                        - paragraph [ref=e183]: 0 / 0
+                        - paragraph [ref=e184]: chuyến đã đóng
+                      - img [ref=e186]
+                  - generic [ref=e191]:
+                    - generic [ref=e192]:
+                      - generic [ref=e193]:
+                        - heading "Doanh thu & Lợi nhuận" [level=3] [ref=e194]
+                        - paragraph [ref=e195]: Biểu đồ 6 tháng gần nhất
+                      - img [ref=e200]:
+                        - generic [ref=e207]: T1/26
+                        - generic [ref=e209]:
+                          - generic [ref=e211]: 0M
+                          - generic [ref=e213]: 15M
+                          - generic [ref=e215]: 30M
+                          - generic [ref=e217]: 45M
+                          - generic [ref=e219]: 60M
+                    - generic [ref=e226]:
+                      - generic [ref=e227]:
+                        - heading "Cơ cấu chi phí" [level=3] [ref=e228]
+                        - paragraph [ref=e229]: Phân bổ theo loại
+                      - img [ref=e234]:
+                        - generic [ref=e235]:
+                          - text: Tổng chi phí
+                          - generic [ref=e236]: 0,0M
+                  - generic [ref=e237]:
+                    - generic [ref=e238]:
+                      - generic [ref=e239]:
+                        - generic [ref=e240]:
+                          - heading "Chuyến hàng gần đây" [level=3] [ref=e241]
+                          - paragraph [ref=e242]: Cập nhật mới nhất
+                        - button "Xem tất cả" [ref=e243] [cursor=pointer]
+                      - generic [ref=e245]:
+                        - generic [ref=e246] [cursor=pointer]:
+                          - generic [ref=e247]:
+                            - img [ref=e249]
+                            - generic [ref=e254]:
+                              - paragraph [ref=e255]: TRIP-2402-06
+                              - paragraph [ref=e256]: 0,0 tấn • Chưa định tuyến
+                          - generic [ref=e257]:
+                            - paragraph [ref=e258]: 18.000.000 ₫
+                            - generic [ref=e259]:
+                              - img [ref=e260]
+                              - text: Đã xác nhận
+                        - generic [ref=e262] [cursor=pointer]:
+                          - generic [ref=e263]:
+                            - img [ref=e265]
+                            - generic [ref=e270]:
+                              - paragraph [ref=e271]: TRIP-2402-05
+                              - paragraph [ref=e272]: 0,0 tấn • Chưa định tuyến
+                          - generic [ref=e273]:
+                            - paragraph [ref=e274]: 1.500.000 ₫
+                            - generic [ref=e275]:
+                              - img [ref=e276]
+                              - text: Đã xác nhận
+                        - generic [ref=e278] [cursor=pointer]:
+                          - generic [ref=e279]:
+                            - img [ref=e281]
+                            - generic [ref=e286]:
+                              - paragraph [ref=e287]: TRIP-2402-04
+                              - paragraph [ref=e288]: 0,0 tấn • Chưa định tuyến
+                          - generic [ref=e289]:
+                            - paragraph [ref=e290]: 1.200.000 ₫
+                            - generic [ref=e291]:
+                              - img [ref=e292]
+                              - text: Đang thực hiện
+                        - generic [ref=e294] [cursor=pointer]:
+                          - generic [ref=e295]:
+                            - img [ref=e297]
+                            - generic [ref=e302]:
+                              - paragraph [ref=e303]: TRIP-2402-03
+                              - paragraph [ref=e304]: 0,0 tấn • Chưa định tuyến
+                          - generic [ref=e305]:
+                            - paragraph [ref=e306]: 2.500.000 ₫
+                            - generic [ref=e307]:
+                              - img [ref=e308]
+                              - text: Đang thực hiện
+                        - generic [ref=e310] [cursor=pointer]:
+                          - generic [ref=e311]:
+                            - img [ref=e313]
+                            - generic [ref=e318]:
+                              - paragraph [ref=e319]: TRIP-2402-01
+                              - paragraph [ref=e320]: 0,0 tấn • Chưa định tuyến
+                          - generic [ref=e321]:
+                            - paragraph [ref=e322]: 3.000.000 ₫
+                            - generic [ref=e323]:
+                              - img [ref=e324]
+                              - text: Đang thực hiện
+                    - generic [ref=e326]:
+                      - generic [ref=e327]:
+                        - generic [ref=e328]:
+                          - heading "Bảo trì xe" [level=3] [ref=e329]:
+                            - img [ref=e330]
+                            - text: Bảo trì xe
+                          - paragraph [ref=e332]: Lịch bảo trì sắp tới
+                        - paragraph [ref=e335]: Không có lịch bảo trì
+                      - generic [ref=e336]:
+                        - generic [ref=e337]:
+                          - heading "Hiệu suất tài xế" [level=3] [ref=e338]:
+                            - img [ref=e339]
+                            - text: Hiệu suất tài xế
+                          - paragraph [ref=e344]: Top 5 tài xế
+                        - generic [ref=e346]:
+                          - generic [ref=e347]:
+                            - generic [ref=e348]:
+                              - paragraph [ref=e349]: Bui Van Long
+                              - paragraph [ref=e350]: 35.000.000 ₫
+                            - generic [ref=e351]:
+                              - paragraph [ref=e352]: 1 chuyến
+                              - paragraph [ref=e353]: 0.0%
+                          - generic [ref=e354]:
+                            - generic [ref=e355]:
+                              - paragraph [ref=e356]: Le Van Binh
+                              - paragraph [ref=e357]: 15.000.000 ₫
+                            - generic [ref=e358]:
+                              - paragraph [ref=e359]: 1 chuyến
+                              - paragraph [ref=e360]: 0.0%
+                          - generic [ref=e361]:
+                            - generic [ref=e362]:
+                              - paragraph [ref=e363]: Nguyen Van Hung
+                              - paragraph [ref=e364]: 2.500.000 ₫
+                            - generic [ref=e365]:
+                              - paragraph [ref=e366]: 1 chuyến
+                              - paragraph [ref=e367]: 0.0%
+                          - generic [ref=e368]:
+                            - generic [ref=e369]:
+                              - paragraph [ref=e370]: Tran Van Nam
+                              - paragraph [ref=e371]: 1.200.000 ₫
+                            - generic [ref=e372]:
+                              - paragraph [ref=e373]: 1 chuyến
+                              - paragraph [ref=e374]: 0.0%
+                          - generic [ref=e375]:
+                            - generic [ref=e376]:
+                              - paragraph [ref=e377]: Ngo Van Nghia
+                              - paragraph [ref=e378]: 0 ₫
+                            - generic [ref=e379]:
+                              - paragraph [ref=e380]: 0 chuyến
+                              - paragraph [ref=e381]: 0.0%
+  - generic [ref=e382]: 0M
+```

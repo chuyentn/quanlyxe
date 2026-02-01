@@ -7,6 +7,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Auth from "@/pages/Auth";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import Dashboard from "./pages/Dashboard";
 import Vehicles from "./pages/Vehicles";
 import Drivers from "./pages/Drivers";
@@ -37,7 +38,9 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <AppLayout>
-                    <Outlet />
+                    <ErrorBoundary name="Main Content">
+                      <Outlet />
+                    </ErrorBoundary>
                   </AppLayout>
                 </ProtectedRoute>
               }
