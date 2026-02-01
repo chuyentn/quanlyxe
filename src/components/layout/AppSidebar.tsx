@@ -28,18 +28,18 @@ import { useAuth, UserRole } from "@/contexts/AuthContext";
 
 // Define which roles can access each menu item
 const roleAccessMap: Record<string, UserRole[]> = {
-  "/": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"], // Dashboard for all
-  "/vehicles": ["admin", "manager", "dispatcher"],
-  "/drivers": ["admin", "manager", "dispatcher"],
-  "/routes": ["admin", "manager", "dispatcher"],
-  "/customers": ["admin", "manager", "dispatcher", "accountant"],
-  "/trips": ["admin", "manager", "dispatcher", "accountant"],
-  "/expenses": ["admin", "manager", "dispatcher", "accountant"],
-  "/dispatch": ["admin", "manager", "dispatcher"],
-  "/maintenance": ["admin", "manager"],
-  "/reports": ["admin", "manager", "accountant"],
-  "/alerts": ["admin", "manager", "dispatcher"],
-  "/settings": ["admin"], // Only admin
+  "/": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/vehicles": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/drivers": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/routes": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/customers": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/trips": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/expenses": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/dispatch": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/maintenance": ["admin", "manager", "dispatcher", "accountant", "driver", "viewer"],
+  "/reports": ["admin", "manager", "accountant", "viewer"],
+  "/alerts": ["admin", "manager", "dispatcher", "viewer"],
+  "/settings": ["admin"], // Only admin (Keep strict)
 };
 
 const navItems = [

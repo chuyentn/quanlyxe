@@ -166,7 +166,18 @@ export function DashboardAlertsTab() {
     }
 
     if (isLoadingVehicles || isLoadingDrivers) {
-        return <div className="flex justify-center p-8 min-h-[400px] items-center"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
+        return (
+            <div className="flex flex-col justify-center p-8 min-h-[400px] items-center gap-4">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                <div className="text-xs text-muted-foreground bg-slate-100 p-2 rounded">
+                    <p>DEBUG INFO:</p>
+                    <p>Loading Vehicles: {isLoadingVehicles ? 'TRUE' : 'FALSE'}</p>
+                    <p>Loading Drivers: {isLoadingDrivers ? 'TRUE' : 'FALSE'}</p>
+                    <p>Vehicles Data: {vehicles ? `Found ${vehicles.length}` : 'NULL'}</p>
+                    <p>Drivers Data: {drivers ? `Found ${drivers.length}` : 'NULL'}</p>
+                </div>
+            </div>
+        );
     }
 
     return (
