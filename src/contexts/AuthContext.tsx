@@ -80,21 +80,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // 2. Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
             if (mounted) {
-                setSession(session);
-                setUser(session?.user ?? null);
+                try {
+                    setSession(session);
+                    setUser(session?.user ?? null);
 
-                // Set loading true while switching auth state
-                setLoading(true);
+                    // Set loading true while switching auth state
+                    setLoading(true);
 
-                if (session?.user) {
-                    const userRole = await fetchUserRole(session.user.id);
-                    setRole(userRole);
-                    localStorage.setItem('user_role', userRole);
-                } else {
+                    if (session?.user) {
+                        const userRole = await fetchUserRole(session.user.id);
+                        setRole(userRole);
+                        localStorage.setItem('user_role', userRole);
+                    } else {
+                        setRole('viewer');
+                        localStorage.removeItem('user_role');
+                    }
+                } catch (error) {
+                    console.error("Auth change error:", error);
+                    // Fallback to viewer on error to prevent lockout
                     setRole('viewer');
-                    localStorage.removeItem('user_role');
+                } finally {
+                    if (mounted) setLoading(false);
                 }
-                setLoading(false);
             }
         });
 
