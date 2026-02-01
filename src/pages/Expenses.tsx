@@ -58,10 +58,10 @@ import { Database } from "@/integrations/supabase/types";
 
 // Types
 type Expense = Database['public']['Tables']['expenses']['Row'] & {
-  category?: Database['public']['Tables']['expense_categories']['Row'] | null;
-  vehicle?: Database['public']['Tables']['vehicles']['Row'] | null;
-  driver?: Database['public']['Tables']['drivers']['Row'] | null;
-  trip?: Database['public']['Tables']['trips']['Row'] | null;
+  category?: any;
+  vehicle?: any;
+  driver?: any;
+  trip?: any;
 };
 
 // Form Schema
@@ -230,7 +230,7 @@ export default function Expenses() {
           updates: processedData,
         });
       } else {
-        await createMutation.mutateAsync(processedData);
+        await createMutation.mutateAsync(processedData as any);
       }
       setDialogOpen(false);
     } catch (error) {
@@ -349,7 +349,7 @@ export default function Expenses() {
 
   const totalAmount = expenses?.reduce((sum, e) => sum + (e.amount || 0), 0) || 0;
 
-  const columns = useMemo<Column<Expense>[]>(() => [
+  const columns = useMemo<Column<any>[]>(() => [
     {
       key: 'expense_code',
       header: 'Mã phiếu',
@@ -399,7 +399,7 @@ export default function Expenses() {
       key: 'status',
       header: 'Trạng thái',
       width: '130px',
-      render: (value) => <StatusBadge status={value as string} />,
+      render: (value) => <StatusBadge status={value as any} />,
     },
     {
       key: 'id',
@@ -424,6 +424,17 @@ export default function Expenses() {
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
+  }
+
+  if (!expenses && !isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
+        <p className="text-destructive font-medium">Không thể tải dữ liệu chi phí.</p>
+        <Button variant="outline" onClick={() => window.location.reload()}>
+          <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
+        </Button>
+      </div>
+    )
   }
 
   return (

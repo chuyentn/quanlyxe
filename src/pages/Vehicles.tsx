@@ -52,7 +52,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Truck, Loader2, Trash2, MapPin, Search, Plus, RefreshCw, Upload, Download, AlertTriangle } from "lucide-react";
+import { Plus, Search, Filter, Download, Upload, Trash2, RefreshCw, Loader2, Truck, AlertTriangle, MapPin } from "lucide-react";
 import { useVehicles, useCreateVehicle, useUpdateVehicle, useDeleteVehicle } from "@/hooks/useVehicles";
 import { useBulkDelete } from "@/hooks/useBulkDelete";
 import { BulkDeleteDialog } from "@/components/shared/BulkDeleteDialog";
@@ -685,6 +685,17 @@ export default function Vehicles() {
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
+  }
+
+  if (!vehicles && !isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
+        <p className="text-destructive font-medium">Không thể tải dữ liệu xe.</p>
+        <Button variant="outline" onClick={() => window.location.reload()}>
+          <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
+        </Button>
+      </div>
+    )
   }
 
   if (isError) {

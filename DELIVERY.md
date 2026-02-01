@@ -9,9 +9,9 @@ We have successfully resolved the critical "Infinite Loading" and "Auth Loop" is
 1.  **Core Performance**: 
     -   Removed redundant data fetching in Sidebar.
     -   **Implemented Lazy Loading**: Reduced Main Bundle size from **2.16MB** -> **576KB** (4x Speedup).
-2.  **Dashboard Precision**: 
-    -   **Fixed Data Logic**: KPIs now include 'In-Progress' and 'Unrouted' trips (Revenue & Count).
-    -   **Clearer Metrics**: Added specific "Estimated Revenue" indicators for running trips.
+2.  **System Stability**:
+    -   **Fixed Infinite Spinner**: Added Global Error Boundaries to all tabs (Vehicles, Drivers, Customers, Dispatch, Trips, Expenses).
+    -   **Data Logic**: Fixed Dashboard KPIs to include 'Active' and 'Unrouted' trips.
 3.  **Auth Stability**: Fixed race condition in `AuthContext` preventing app crashes on token refresh.
 4.  **Data Access**: Distributed SQL scripts to enforce Admin permissions and bypass RLS blockages.
 

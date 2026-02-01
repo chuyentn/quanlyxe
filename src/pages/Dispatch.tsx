@@ -13,7 +13,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Filter,
-  Search
+  Search,
+  Loader2,
+  RefreshCw
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -407,7 +409,18 @@ export default function Dispatch() {
           </div>
         </CardHeader>
 
-        <CardContent className="flex-1 p-0 overflow-x-auto relative">
+        <CardContent className="flex-1 p-0 overflow-x-auto relative min-h-[500px]">
+          {isLoadingTrips ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : !trips ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10">
+              <p className="text-destructive">Lỗi tải dữ liệu</p>
+              <Button variant="outline" size="sm" onClick={() => window.location.reload()}>Thử lại</Button>
+            </div>
+          ) : null}
+
           {/* Week & Month View - Grid */}
           {(viewMode === 'week' || viewMode === 'month') && (
             <div className={`grid grid-cols-7 h-full ${viewMode === 'week' ? 'min-w-[1000px]' : 'min-w-[1000px] auto-rows-fr'} divide-x divide-gray-100 border-l border-t`}>

@@ -5,7 +5,7 @@ import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 interface StatCardProps {
   title: string;
   value: string | number;
-  subtitle?: string;
+  subtitle?: ReactNode;
   icon?: ReactNode;
   trend?: {
     value: number;
@@ -53,7 +53,7 @@ export function StatCard({
             {value}
           </p>
           {subtitle && (
-            <p className="text-xs text-muted-foreground">{subtitle}</p>
+            <div className="text-xs text-muted-foreground">{subtitle}</div>
           )}
         </div>
         {icon && (
@@ -62,7 +62,7 @@ export function StatCard({
           </div>
         )}
       </div>
-      
+
       {trend && (
         <div className={cn('flex items-center gap-1 mt-3 text-sm', getTrendColor())}>
           {getTrendIcon()}

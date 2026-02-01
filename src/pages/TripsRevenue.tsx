@@ -718,6 +718,17 @@ export default function TripsRevenue() {
         );
     }
 
+    if (!trips && !isLoading && !error) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
+                <p className="text-destructive font-medium">Không thể tải dữ liệu chuyến.</p>
+                <Button variant="outline" onClick={() => refetch()}>
+                    <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
+                </Button>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-4 animate-fade-in">
             {/* Header */}

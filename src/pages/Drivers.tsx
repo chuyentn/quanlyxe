@@ -49,7 +49,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Users, Phone, Loader2, Trash2, RefreshCw, Search, Plus, Upload, Download } from "lucide-react";
+import { User, Users, Phone, MapPin, Calendar, CreditCard, Search, Plus, Filter, Download, Upload, Trash2, RefreshCw, Loader2 } from "lucide-react";
 import { useDrivers, useCreateDriver, useUpdateDriver, useDeleteDriver } from "@/hooks/useDrivers";
 import { useVehiclesByStatus } from "@/hooks/useVehicles";
 import { useQueryClient } from "@tanstack/react-query";
@@ -607,6 +607,17 @@ export default function Drivers() {
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
+  }
+
+  if (!drivers && !isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
+        <p className="text-destructive font-medium">Không thể tải dữ liệu tài xế.</p>
+        <Button variant="outline" onClick={() => window.location.reload()}>
+          <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
+        </Button>
+      </div>
+    )
   }
 
   return (

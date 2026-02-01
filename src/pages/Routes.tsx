@@ -680,6 +680,18 @@ export default function Routes() {
     );
   }
 
+  // Handle Error State
+  if (!routes && !isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
+        <p className="text-destructive font-medium">Không thể tải dữ liệu tuyến đường.</p>
+        <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ['routes'] })}>
+          <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-2 animate-fade-in">
       {/* 1. Compact Header Row */}
