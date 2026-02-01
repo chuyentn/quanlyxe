@@ -267,7 +267,7 @@ export const useDraftExpenseCount = (tripId: string | undefined) => {
                 .select('*', { count: 'exact', head: true })
                 .eq('trip_id', tripId)
                 .eq('status', 'draft')
-                .eq('is_deleted', false);
+            // .eq('is_deleted', false);
 
             if (error) throw error;
             return count || 0;

@@ -17,7 +17,7 @@ export const useRoutes = () => {
             const { data, error } = await supabase
                 .from('routes')
                 .select('*')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('route_name', { ascending: true });
 
             if (error) throw error;

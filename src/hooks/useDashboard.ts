@@ -244,7 +244,7 @@ export const useExpenseBreakdown = (startDate: string, endDate: string) => {
                 .eq('status', 'confirmed') // Consider confirmed expenses as actual cost
                 .gte('expense_date', startDate)
                 .lte('expense_date', endDate)
-                .eq('is_deleted', false);
+            // .eq('is_deleted', false);
 
             if (error) throw error;
             if (!data) return [];

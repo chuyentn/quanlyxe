@@ -19,7 +19,7 @@ export const useExpenses = () => {
             const { data, error } = await supabase
                 .from('expenses')
                 .select('*, category:expense_categories(*), trip:trip_id(trip_code)')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('expense_date', { ascending: false });
 
             if (error) throw error;
@@ -40,7 +40,7 @@ export const useExpensesByTrip = (tripId: string | undefined) => {
             const { data, error } = await supabase
                 .from('expenses')
                 .select('*, category:expense_categories(*), trip:trip_id(trip_code)')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .eq('trip_id', tripId)
                 .order('expense_date', { ascending: false });
 
@@ -64,7 +64,7 @@ export const useExpense = (id: string | undefined) => {
                 .from('expenses')
                 .select('*, category:expense_categories(*), allocations:expense_allocations(*), trip:trip_id(trip_code)')
                 .eq('id', id)
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .single();
 
             if (error) throw error;
@@ -378,7 +378,7 @@ export const useSearchExpenses = (searchTerm: string) => {
                 const { data, error } = await supabase
                     .from('expenses')
                     .select('*, category:expense_categories(*)')
-                    .eq('is_deleted', false)
+                    // .eq('is_deleted', false)
                     .order('expense_date', { ascending: false });
 
                 if (error) throw error;
@@ -388,7 +388,7 @@ export const useSearchExpenses = (searchTerm: string) => {
             const { data, error } = await supabase
                 .from('expenses')
                 .select('*, category:expense_categories(*)')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .or(`expense_code.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,document_number.ilike.%${searchTerm}%`)
                 .order('expense_date', { ascending: false });
 

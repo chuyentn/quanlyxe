@@ -60,7 +60,7 @@ export const useVehicleReport = (filters: ReportFilters) => {
                 .select('vehicle_id, amount, category_id, expense_categories(category_code, category_type)')
                 .gte('expense_date', fromDate)
                 .lte('expense_date', toDate)
-                .not('is_deleted', 'is', true);
+            // .not('is_deleted', 'is', true);
 
             if (expenseError) throw expenseError;
 

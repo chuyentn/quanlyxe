@@ -22,7 +22,16 @@ import Settings from "./pages/Settings";
 import Alerts from "./pages/Alerts";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1, // Fail fast
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false, // Prevent aggressive refetching
+      // timeout: 15000, // Removed as it is not a valid option
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

@@ -17,7 +17,7 @@ export const useDrivers = () => {
             const { data, error } = await supabase
                 .from('drivers')
                 .select('*, assigned_vehicle:assigned_vehicle_id(license_plate,vehicle_code,status)')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
@@ -39,7 +39,7 @@ export const useDriver = (id: string | undefined) => {
                 .from('drivers')
                 .select('*, assigned_vehicle:assigned_vehicle_id(license_plate,vehicle_code,status)')
                 .eq('id', id)
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .single();
 
             if (error) throw error;
@@ -221,7 +221,7 @@ export const useSearchDrivers = (searchTerm: string) => {
                 const { data, error } = await supabase
                     .from('drivers')
                     .select('*')
-                    .eq('is_deleted', false)
+                    // .eq('is_deleted', false)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;

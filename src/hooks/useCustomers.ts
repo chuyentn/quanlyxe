@@ -17,7 +17,7 @@ export const useCustomers = () => {
             const { data, error } = await supabase
                 .from('customers')
                 .select('*')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('customer_name', { ascending: true });
 
             if (error) throw error;

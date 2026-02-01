@@ -75,7 +75,7 @@ export const useTrips = () => {
                 //     customer:customers(id, customer_name, short_name)
                 // `)
 
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('departure_date', { ascending: false })
                 .limit(100);
 
@@ -134,7 +134,7 @@ export const useTripsByStatus = (status: string) => {
                     route:routes(id, route_name, origin, destination),
                     customer:customers(id, customer_name, short_name)
                 `)
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .eq('status', status)
                 .order('departure_date', { ascending: false });
 
@@ -643,7 +643,7 @@ export const useSearchTrips = (searchTerm: string) => {
                     route:routes(id, route_name, origin, destination),
                     customer:customers(id, customer_name, short_name)
                 `)
-                .eq('is_deleted', false);
+            // .eq('is_deleted', false);
 
             if (searchTerm) {
                 query.or(`trip_code.ilike.%${searchTerm}%,cargo_description.ilike.%${searchTerm}%`);
@@ -699,7 +699,7 @@ export const useTripsByDateRange = (startDate: string, endDate: string) => {
                     route:routes(id, route_name, origin, destination),
                     customer:customers(id, customer_name, short_name)
                 `)
-                    .eq('is_deleted', false)
+                    // .eq('is_deleted', false)
                     .gte('departure_date', startDate)
                     .lte('departure_date', endDate)
                     .order('departure_date', { ascending: false })

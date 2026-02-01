@@ -17,7 +17,7 @@ export const useMaintenanceOrders = () => {
             const { data, error } = await supabase
                 .from('maintenance_orders')
                 .select('*, vehicle:vehicles(license_plate)')
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .order('scheduled_date', { ascending: false });
 
             if (error) throw error;
@@ -39,7 +39,7 @@ export const useMaintenanceOrder = (id: string | undefined) => {
                 .from('maintenance_orders')
                 .select('*, vehicle:vehicles(license_plate)')
                 .eq('id', id)
-                .eq('is_deleted', false)
+                // .eq('is_deleted', false)
                 .single();
 
             if (error) throw error;
