@@ -674,44 +674,48 @@ export const useTripsByDateRange = (startDate: string, endDate: string) => {
     return useQuery({
         queryKey: ['trips', 'dateRange', startDate, endDate],
         queryFn: async () => {
-            // Try materialized view first - DISABLED to ensure relations are loaded
-            // const { data: viewData, error: viewError } = await supabase
-            //     .from('trip_financials')
-            //     .select('*')
-            //     .gte('departure_date', startDate)
-            //     .lte('departure_date', endDate)
-            //     .order('departure_date', { ascending: false });
+            // Use materialized view for performance
+            const { data: viewData, error: viewError } = await supabase
+                .from('trip_financials')
+                .select('*')
+                .gte('departure_date', startDate)
+                .lte('departure_date', endDate)
+                .order('departure_date', { ascending: false });
 
-            // if (!viewError && viewData) return viewData as TripFinancial[];
-
-            // Fallback to trips table
-            const { data: tripsData, error: tripsError } = await supabase
-                .from('trips')
-                .select(`
+            if (viewError) {
+                console.error('Error fetching trips by date range from view:', viewError);
+                // Fallback to trips table if view fails
+                const { data: tripsData, error: tripsError } = await supabase
+                    .from('trips')
+                    .select(`
                     *,
                     vehicle:vehicles(id, license_plate, vehicle_type, status),
                     driver:drivers(id, full_name, driver_code),
                     route:routes(id, route_name, origin, destination),
                     customer:customers(id, customer_name, short_name)
                 `)
-                .eq('is_deleted', false)
-                .gte('departure_date', startDate)
-                .lte('departure_date', endDate)
-                .order('departure_date', { ascending: false });
+                    .eq('is_deleted', false)
+                    .gte('departure_date', startDate)
+                    .lte('departure_date', endDate)
+                    .order('departure_date', { ascending: false })
+                    .limit(100);
 
-            if (tripsError) throw tripsError;
+                if (tripsError) throw tripsError;
 
-            return (tripsData || []).map(trip => ({
-                ...trip,
-                total_revenue: (trip.freight_revenue || 0) + (trip.additional_charges || 0),
-                direct_expenses: 0,
-                allocated_expenses: 0,
-                total_expense: 0,
-                profit: (trip.freight_revenue || 0) + (trip.additional_charges || 0),
-                profit_margin_pct: 0,
-                expense_count: 0,
-                allocation_count: 0,
-            })) as any[];
+                return (tripsData || []).map(trip => ({
+                    ...trip,
+                    total_revenue: (trip.freight_revenue || 0) + (trip.additional_charges || 0),
+                    direct_expenses: 0,
+                    allocated_expenses: 0,
+                    total_expense: 0,
+                    profit: (trip.freight_revenue || 0) + (trip.additional_charges || 0),
+                    profit_margin_pct: 0,
+                    expense_count: 0,
+                    allocation_count: 0,
+                })) as any[];
+            }
+
+            return viewData as TripFinancial[];
         },
         enabled: !!startDate && !!endDate,
     });

@@ -52,6 +52,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         let mounted = true;
 
+        // Safety timeout to prevent infinite loading
+        const safetyTimeout = setTimeout(() => {
+            if (mounted && loading) {
+                console.warn("Auth check timed out, forcing loading to false");
+                setLoading(false);
+            }
+        }, 5000); // 5 seconds max wait
+
         // 1. Get initial session
         const initSession = async () => {
             try {
@@ -87,6 +95,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     // Set loading true while switching auth state
                     setLoading(true);
 
+                    // Re-start safety timeout for auth change events
+                    const changeTimeout = setTimeout(() => {
+                        if (mounted) setLoading(false);
+                    }, 5000);
+
                     if (session?.user) {
                         const userRole = await fetchUserRole(session.user.id);
                         setRole(userRole);
@@ -95,9 +108,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                         setRole('viewer');
                         localStorage.removeItem('user_role');
                     }
+
+                    clearTimeout(changeTimeout); // Clear if successful
                 } catch (error) {
                     console.error("Auth change error:", error);
-                    // Fallback to viewer on error to prevent lockout
                     setRole('viewer');
                 } finally {
                     if (mounted) setLoading(false);
@@ -107,6 +121,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         return () => {
             mounted = false;
+            clearTimeout(safetyTimeout);
             subscription.unsubscribe();
         };
     }, []);
