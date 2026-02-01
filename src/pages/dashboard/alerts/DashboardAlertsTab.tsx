@@ -44,8 +44,8 @@ export function DashboardAlertsTab() {
         // 1. Vehicle Alerts
         vehicles.forEach(v => {
             // Registration
-            if (v.registration_deadline) {
-                const date = parseISO(v.registration_deadline);
+            if (v.registration_expiry_date) {
+                const date = parseISO(v.registration_expiry_date);
                 let severity: 'high' | 'medium' | 'low' | null = null;
                 if (isBefore(date, now)) severity = 'high';
                 else if (isBefore(date, days15)) severity = 'medium';
@@ -58,15 +58,15 @@ export function DashboardAlertsTab() {
                         severity,
                         entity_type: 'vehicle',
                         entity_name: v.license_plate,
-                        message: `Đăng kiểm ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(v.registration_deadline)})`,
+                        message: `Đăng kiểm ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(v.registration_expiry_date)})`,
                         created_at: new Date().toISOString() // Dynamic
                     });
                 }
             }
 
             // Insurance
-            if (v.insurance_deadline) {
-                const date = parseISO(v.insurance_deadline);
+            if (v.insurance_expiry_date) {
+                const date = parseISO(v.insurance_expiry_date);
                 let severity: 'high' | 'medium' | 'low' | null = null;
                 if (isBefore(date, now)) severity = 'high';
                 else if (isBefore(date, days15)) severity = 'medium';
@@ -79,7 +79,7 @@ export function DashboardAlertsTab() {
                         severity,
                         entity_type: 'vehicle',
                         entity_name: v.license_plate,
-                        message: `Bảo hiểm ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(v.insurance_deadline)})`,
+                        message: `Bảo hiểm ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(v.insurance_expiry_date)})`,
                         created_at: new Date().toISOString()
                     });
                 }
@@ -89,8 +89,8 @@ export function DashboardAlertsTab() {
         // 2. Driver Alerts
         drivers.forEach(d => {
             // License
-            if (d.license_expiry_date) {
-                const date = parseISO(d.license_expiry_date);
+            if (d.license_expiry) {
+                const date = parseISO(d.license_expiry);
                 let severity: 'high' | 'medium' | 'low' | null = null;
                 if (isBefore(date, now)) severity = 'high';
                 else if (isBefore(date, days15)) severity = 'medium';
@@ -103,7 +103,7 @@ export function DashboardAlertsTab() {
                         severity,
                         entity_type: 'driver',
                         entity_name: d.full_name,
-                        message: `Bằng lái ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(d.license_expiry_date)})`,
+                        message: `Bằng lái ${isBefore(date, now) ? 'đã hết hạn' : 'sắp hết hạn'} (${formatDate(d.license_expiry)})`,
                         created_at: new Date().toISOString()
                     });
                 }

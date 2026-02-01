@@ -54,7 +54,7 @@ export interface DashboardFleetPerformanceRow {
 
 export interface DashboardAlertRow {
   id: string;
-  alert_type: 'maintenance' | 'license' | 'insurance' | 'debt' | 'performance';
+  alert_type: 'maintenance' | 'license' | 'insurance' | 'debt' | 'performance' | 'registration';
   severity: 'high' | 'medium' | 'low';
   entity_type: 'vehicle' | 'driver' | 'customer' | 'trip';
   entity_name: string;
