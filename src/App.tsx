@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,30 +9,38 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Auth from "@/pages/Auth";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
-import Dashboard from "./pages/Dashboard";
-import Vehicles from "./pages/Vehicles";
-import Drivers from "./pages/Drivers";
-import RoutesPage from "./pages/Routes";
-import Customers from "./pages/Customers";
-import Trips from "./pages/Trips";
-import Dispatch from "./pages/Dispatch";
-import Expenses from "./pages/Expenses";
-import Maintenance from "./pages/Maintenance";
-import Reports from "./pages/Reports";
-import Settings from "./pages/Settings";
-import Alerts from "./pages/Alerts";
-import NotFound from "./pages/NotFound";
+import { Loader2 } from "lucide-react";
+
+// Lazy Load Pages to optimize initial bundle size (P2 in Roadmap)
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Vehicles = lazy(() => import("./pages/Vehicles"));
+const Drivers = lazy(() => import("./pages/Drivers"));
+const RoutesPage = lazy(() => import("./pages/Routes"));
+const Customers = lazy(() => import("./pages/Customers"));
+const Trips = lazy(() => import("./pages/Trips"));
+const Dispatch = lazy(() => import("./pages/Dispatch"));
+const Expenses = lazy(() => import("./pages/Expenses"));
+const Maintenance = lazy(() => import("./pages/Maintenance"));
+const Reports = lazy(() => import("./pages/Reports"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Alerts = lazy(() => import("./pages/Alerts"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1, // Fail fast
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      refetchOnWindowFocus: false, // Prevent aggressive refetching
-      // timeout: 15000, // Removed as it is not a valid option
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      refetchOnWindowFocus: false,
     },
   },
 });
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -48,7 +57,9 @@ const App = () => (
                 <ProtectedRoute>
                   <AppLayout>
                     <ErrorBoundary name="Main Content">
-                      <Outlet />
+                      <Suspense fallback={<PageLoader />}>
+                        <Outlet />
+                      </Suspense>
                     </ErrorBoundary>
                   </AppLayout>
                 </ProtectedRoute>
