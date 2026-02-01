@@ -1,4 +1,5 @@
 // No changes yet, verifying Drivers.tsx first.
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -83,6 +84,7 @@ const importMap = {
 
 // Type definitions from Supabase
 type Vehicle = Database['public']['Tables']['vehicles']['Row'];
+type NewVehicle = Database['public']['Tables']['vehicles']['Insert'];
 
 // Form Schema Validation - đầy đủ 18 trường theo Excel
 const vehicleSchema = z.object({
@@ -236,11 +238,11 @@ export default function Vehicles() {
     setDialogOpen(true);
   };
 
-  const handleDeleteClick = (e: React.MouseEvent, vehicle: Vehicle) => {
+  const handleDeleteClick = useCallback((e: React.MouseEvent, vehicle: Vehicle) => {
     e.stopPropagation();
     setSelectedVehicle(vehicle);
     setDeleteDialogOpen(true);
-  };
+  }, []);
 
   const handleBulkDelete = () => {
     if (selectedRowIds.size > 0) {
@@ -314,7 +316,7 @@ export default function Vehicles() {
           updates: processedData,
         });
       } else {
-        await createMutation.mutateAsync(processedData as any);
+        await createMutation.mutateAsync(processedData as NewVehicle);
       }
       setDialogOpen(false);
     } catch (error) {

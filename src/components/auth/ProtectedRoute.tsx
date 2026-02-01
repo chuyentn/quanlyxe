@@ -5,8 +5,7 @@ import { Loader2 } from "lucide-react";
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const { session, loading } = useAuth();
 
-    // Allow demo access for development
-    const isDemoMode = import.meta.env.MODE === 'development' && !session && !loading;
+
 
     if (loading) {
         return (
@@ -19,7 +18,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         );
     }
 
-    if (!session && !isDemoMode) {
+    if (!session) {
         return <Navigate to="/auth" replace />;
     }
 
