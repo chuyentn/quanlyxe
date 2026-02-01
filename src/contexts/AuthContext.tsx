@@ -89,32 +89,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
             if (mounted) {
                 try {
+                    console.log('[AUTH] Event:', _event, session?.user?.email);
                     setSession(session);
                     setUser(session?.user ?? null);
 
-                    // Set loading true while switching auth state
-                    setLoading(true);
-
-                    // Re-start safety timeout for auth change events
-                    const changeTimeout = setTimeout(() => {
-                        if (mounted) setLoading(false);
-                    }, 5000);
-
                     if (session?.user) {
                         const userRole = await fetchUserRole(session.user.id);
-                        setRole(userRole);
-                        localStorage.setItem('user_role', userRole);
+                        // Only update if role changed to avoid unnecessary re-renders
+                        setRole((prev) => {
+                            if (prev !== userRole) {
+                                console.log('[AUTH] Role updated:', userRole);
+                                localStorage.setItem('user_role', userRole);
+                                return userRole;
+                            }
+                            return prev;
+                        });
                     } else {
                         setRole('viewer');
                         localStorage.removeItem('user_role');
                     }
-
-                    clearTimeout(changeTimeout); // Clear if successful
                 } catch (error) {
-                    console.error("Auth change error:", error);
+                    console.error("[AUTH] Change error:", error);
                     setRole('viewer');
-                } finally {
-                    if (mounted) setLoading(false);
                 }
             }
         });

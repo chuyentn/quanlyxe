@@ -63,11 +63,11 @@ export function AppSidebar() {
   const { toast } = useToast();
   const { role } = useAuth();
 
-  // Check for master data existence
-  const { data: vehicles } = useVehicles();
-  const { data: drivers } = useDrivers();
-  const { data: routes } = useRoutes();
-  const { data: customers } = useCustomers();
+  // Check for master data existence - REMOVED for performance (unused)
+  // const { data: vehicles } = useVehicles();
+  // const { data: drivers } = useDrivers();
+  // const { data: routes } = useRoutes();
+  // const { data: customers } = useCustomers();
 
   // Check if user has access to a path based on role
   const hasAccess = (path: string) => {

@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import {
@@ -269,7 +269,7 @@ export default function Settings() {
                           </select>
                         </div>
                         <div className="flex gap-2">
-                          <Button onClick={handleAddUser} disabled={addUserMutation.isLoading} className="flex-1">
+                          <Button onClick={handleAddUser} disabled={addUserMutation.isPending} className="flex-1">
                             Thêm
                           </Button>
                           <Button variant="outline" onClick={() => setShowAddUserModal(false)} className="flex-1">
@@ -315,7 +315,7 @@ export default function Settings() {
                                 value={u.role || 'viewer'}
                                 onChange={(e) => updateRoleMutation.mutate({ user_id: u.id, role: e.target.value })}
                                 className="px-2 py-1 border rounded text-xs"
-                                disabled={updateRoleMutation.isLoading}
+                                disabled={updateRoleMutation.isPending}
                               >
                                 <option value="admin">Quản trị viên</option>
                                 <option value="manager">Quản lý</option>
@@ -328,7 +328,7 @@ export default function Settings() {
                             <td className="px-4 py-2 text-center">
                               <button
                                 onClick={() => handleDeleteUser(u.id)}
-                                disabled={deleteUserMutation.isLoading}
+                                disabled={deleteUserMutation.isPending}
                                 className="text-red-500 hover:text-red-700 inline-flex"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -479,7 +479,7 @@ export default function Settings() {
             </div>
             <Button
               onClick={handleSyncAll}
-              disabled={companySave.isLoading || secSave.isLoading}
+              disabled={companySave.isPending || secSave.isPending}
               size="lg"
             >
               <RefreshCw className="w-4 h-4 mr-2" />

@@ -33,6 +33,7 @@ export function DashboardFleetPerformanceTab() {
 
         const vehicleMap = new Map<string, DashboardFleetPerformanceRow>();
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         trips.forEach((trip: any) => { // TODO: Replace any with JoinedTrip type when available
             if (!trip.vehicle_id || !trip.vehicle) return;
 
