@@ -105,7 +105,8 @@ export function AppSidebar() {
             const Icon = item.icon;
 
             // Role-based access control
-            const isDisabled = !hasAccess(item.path);
+            // FORCED UNLOCK for debugging
+            const isDisabled = false; // !hasAccess(item.path);
 
             // Hide settings from non-admin users completely
             if (item.path === "/settings" && role !== "admin") {
@@ -115,31 +116,15 @@ export function AppSidebar() {
             return (
               <li key={item.path}>
                 <Link
-                  to={isDisabled ? "#" : item.path}
-                  onClick={(e) => {
-                    if (isDisabled) {
-                      e.preventDefault();
-                      toast({
-                        title: "Không có quyền truy cập",
-                        description: "Bạn không có quyền sử dụng tính năng này. Liên hệ Admin để được cấp quyền.",
-                        variant: "destructive",
-                      });
-                    }
-                  }}
+                  to={item.path}
                   className={cn(
                     "nav-item",
                     isActive ? "nav-item-active" : "nav-item-inactive",
-                    isDisabled && "opacity-50 cursor-not-allowed hover:bg-transparent hover:text-sidebar-foreground"
                   )}
-                  title={isDisabled ? "Không có quyền truy cập" : (collapsed ? item.label : undefined)}
+                  title={collapsed ? item.label : undefined}
                 >
                   <div className="relative">
                     <Icon className="w-5 h-5 flex-shrink-0" />
-                    {isDisabled && (
-                      <div className="absolute -top-1 -right-1">
-                        <Lock className="w-3 h-3 text-destructive" />
-                      </div>
-                    )}
                   </div>
                   {!collapsed && (
                     <span className="animate-fade-in truncate">{item.label}</span>
@@ -152,7 +137,16 @@ export function AppSidebar() {
       </nav>
 
       {/* Collapse button */}
-      <div className="p-2 border-t border-sidebar-border">
+      <div className="p-2 border-t border-sidebar-border space-y-2">
+        {/* Debug Role Info - Always visible for now to help user */}
+        <div className="px-2 py-1 text-xs text-sidebar-foreground/50 bg-sidebar-accent/50 rounded">
+          {!collapsed && (
+            <>
+              <p>Role: <span className="font-bold text-primary">{role}</span></p>
+            </>
+          )}
+        </div>
+
         <Button
           variant="ghost"
           size="sm"

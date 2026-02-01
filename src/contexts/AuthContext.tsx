@@ -56,15 +56,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const initSession = async () => {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
-                if (mounted && session) {
-                    setSession(session);
-                    setUser(session.user);
-                    const userRole = await fetchUserRole(session.user.id);
-                    setRole(userRole);
-                    localStorage.setItem('user_role', userRole); // Cache role
+                if (mounted) {
+                    if (session) {
+                        setSession(session);
+                        setUser(session.user);
+                        const userRole = await fetchUserRole(session.user.id);
+                        setRole(userRole);
+                        localStorage.setItem('user_role', userRole);
+                    } else {
+                        setRole('viewer');
+                        localStorage.removeItem('user_role');
+                    }
                 }
             } catch (error) {
                 console.error("Auth init error:", error);
+            } finally {
+                if (mounted) setLoading(false);
             }
         };
 
@@ -75,26 +82,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             if (mounted) {
                 setSession(session);
                 setUser(session?.user ?? null);
+
+                // Set loading true while switching auth state
+                setLoading(true);
+
                 if (session?.user) {
                     const userRole = await fetchUserRole(session.user.id);
                     setRole(userRole);
-                    localStorage.setItem('user_role', userRole); // Cache role
+                    localStorage.setItem('user_role', userRole);
                 } else {
                     setRole('viewer');
-                    localStorage.removeItem('user_role'); // Clear cache
+                    localStorage.removeItem('user_role');
                 }
                 setLoading(false);
             }
         });
 
-        // Set loading to false after initial check
-        const timer = setTimeout(() => {
-            if (mounted) setLoading(false);
-        }, 3000);
-
         return () => {
             mounted = false;
-            clearTimeout(timer);
             subscription.unsubscribe();
         };
     }, []);
