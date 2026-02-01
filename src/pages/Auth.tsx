@@ -110,7 +110,7 @@ export default function Auth() {
                             <Truck className="w-10 h-10 text-primary" />
                         </div>
                     </div>
-                    <CardTitle className="text-2xl font-bold text-primary">Vi-T Truck Manager</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-primary">Công ty cổ phần Sao Vàng</CardTitle>
                     <CardDescription>
                         Hệ thống quản lý đội xe chuyên nghiệp
                     </CardDescription>

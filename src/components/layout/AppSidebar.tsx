@@ -90,7 +90,7 @@ export function AppSidebar() {
           </div>
           {!collapsed && (
             <div className="animate-fade-in">
-              <h1 className="text-base font-bold text-sidebar-foreground">FleetPro</h1>
+              <h1 className="text-base font-bold text-sidebar-foreground">SAVACO APP</h1>
               <p className="text-xs text-sidebar-foreground/60">Quản lý vận tải</p>
             </div>
           )}
