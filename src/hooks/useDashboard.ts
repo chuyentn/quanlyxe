@@ -105,11 +105,11 @@ export const useDashboardStats = (startDate: string, endDate: string) => {
             );
 
             const inProgressTrips = trips.filter(t =>
-                t.status === 'in_progress'
+                ['in_progress', 'assigned', 'active'].includes(t.status)
             );
 
             const draftTrips = trips.filter(t =>
-                t.status === 'draft'
+                ['draft', 'unrouted', 'cancelled'].includes(t.status)
             );
 
             const stats: DashboardStats = {

@@ -218,7 +218,12 @@ export function DashboardOverview() {
                     <StatCard
                         title="Tổng doanh thu"
                         value={statsLoading ? "..." : formatCurrency((stats?.official.revenue || 0) + (stats?.pending.revenue || 0))}
-                        subtitle={stats?.pending.revenue ? `(Gồm ${formatCurrency(stats.pending.revenue)} chưa chốt)` : undefined}
+                        subtitle={
+                            <span className="flex flex-col gap-1">
+                                {(stats?.pending.revenue || 0) > 0 && <span>+ {formatCurrency(stats?.pending.revenue || 0)} chưa chốt</span>}
+                                {(stats?.inProgress.revenue || 0) > 0 && <span className="text-blue-600 bg-blue-50 px-1 rounded">+ {formatCurrency(stats?.inProgress.revenue || 0)} đang chạy</span>}
+                            </span>
+                        }
                         trend={{ value: revenueTrend, label: "so với tháng trước" }}
                         icon={<Wallet className="w-6 h-6" />}
                         className={statsLoading ? "opacity-50" : ""}
