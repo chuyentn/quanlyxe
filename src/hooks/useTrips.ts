@@ -677,7 +677,12 @@ export const useTripsByDateRange = (startDate: string, endDate: string) => {
             // Use materialized view for performance
             const { data: viewData, error: viewError } = await supabase
                 .from('trip_financials')
-                .select('*')
+                .select(`
+                    *,
+                    vehicle:vehicles(id, license_plate, vehicle_type, status),
+                    driver:drivers(id, full_name, driver_code),
+                    customer:customers(id, customer_name, short_name)
+                `)
                 .gte('departure_date', startDate)
                 .lte('departure_date', endDate)
                 .order('departure_date', { ascending: false });

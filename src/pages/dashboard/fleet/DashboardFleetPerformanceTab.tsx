@@ -33,7 +33,7 @@ export function DashboardFleetPerformanceTab() {
 
         const vehicleMap = new Map<string, DashboardFleetPerformanceRow>();
 
-        trips.forEach((trip: any) => {
+        trips.forEach((trip: any) => { // TODO: Replace any with JoinedTrip type when available
             if (!trip.vehicle_id || !trip.vehicle) return;
 
             const vehicleId = trip.vehicle_id;

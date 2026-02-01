@@ -97,7 +97,7 @@ export function DashboardTripsTab() {
             key: 'status',
             header: 'Trạng thái',
             render: (v) => {
-                const map: Record<string, any> = {
+                const map: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
                     completed: 'default',
                     cancelled: 'destructive',
                     draft: 'outline',
