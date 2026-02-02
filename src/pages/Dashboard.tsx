@@ -7,12 +7,14 @@ import { DashboardTripsTab } from "./dashboard/trips/DashboardTripsTab";
 import { DashboardFleetPerformanceTab } from "./dashboard/fleet/DashboardFleetPerformanceTab";
 import { DashboardAlertsTab } from "./dashboard/alerts/DashboardAlertsTab";
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function Dashboard() {
   const now = new Date();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") || "overview";
+
+  // Debug log
+  console.log('[Dashboard] Rendering, activeTab:', activeTab);
 
   const handleTabChange = (value: string) => {
     setSearchParams({ tab: value });

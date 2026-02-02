@@ -9,9 +9,11 @@ import { DashboardFilterBar } from "@/components/dashboard/DashboardFilterBar";
 import { startOfMonth, endOfMonth, parseISO } from "date-fns";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 
-export function DashboardExpensesTab() {
+export const DashboardExpensesTab = () => {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const { data: expenses, isLoading, isError } = useExpenses();
 
     // Filter States
@@ -125,7 +127,7 @@ export function DashboardExpensesTab() {
                 <AlertTriangle className="w-12 h-12 mb-4" />
                 <h3 className="text-lg font-semibold">Không thể tải dữ liệu chi phí</h3>
                 <p className="text-sm text-muted-foreground">Vui lòng kiểm tra kết nối hoặc quyền truy cập.</p>
-                <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>Tải lại trang</Button>
+                <Button variant="outline" className="mt-4" onClick={() => queryClient.invalidateQueries({ queryKey: ['expenses_breakdown'] })}>Tải lại trang</Button>
             </div>
         );
     }

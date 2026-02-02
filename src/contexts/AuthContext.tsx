@@ -52,13 +52,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         let mounted = true;
 
-        // Safety timeout to prevent infinite loading
-        const safetyTimeout = setTimeout(() => {
-            if (mounted && loading) {
-                console.warn("Auth check timed out, forcing loading to false");
-                setLoading(false);
-            }
-        }, 5000); // 5 seconds max wait
+        // Safety timeout REMOVED to avoid masking real issues.
+        // We rely on finally blocks to ensure loading is set to false.
 
         // 1. Get initial session
         const initSession = async () => {
@@ -115,11 +110,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
         });
 
-        return () => {
-            mounted = false;
-            clearTimeout(safetyTimeout);
-            subscription.unsubscribe();
-        };
+        mounted = false;
+        // clearTimeout(safetyTimeout);
+        subscription.unsubscribe();
     }, []);
 
     const signOut = async () => {

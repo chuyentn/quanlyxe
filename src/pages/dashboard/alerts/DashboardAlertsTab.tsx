@@ -12,7 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function DashboardAlertsTab() {
+import { useQueryClient } from "@tanstack/react-query";
+
+export const DashboardAlertsTab = () => {
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
     const { data: vehicles, isLoading: isLoadingVehicles, isError: isErrorVehicles } = useVehiclesByStatus('active');
     const { data: drivers, isLoading: isLoadingDrivers, isError: isErrorDrivers } = useActiveDrivers();
@@ -160,7 +163,7 @@ export function DashboardAlertsTab() {
                 <AlertTriangle className="w-12 h-12 mb-4" />
                 <h3 className="text-lg font-semibold">Không thể tải dữ liệu cảnh báo</h3>
                 <p className="text-sm text-muted-foreground">Vui lòng kiểm tra kết nối hoặc quyền truy cập.</p>
-                <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>Tải lại trang</Button>
+                <Button variant="outline" className="mt-4" onClick={() => queryClient.invalidateQueries({ queryKey: ['maintenance_alerts'] })}>Tải lại trang</Button>
             </div>
         );
     }

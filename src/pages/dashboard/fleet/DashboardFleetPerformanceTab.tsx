@@ -10,8 +10,17 @@ import { startOfMonth, endOfMonth, format } from "date-fns";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function DashboardFleetPerformanceTab() {
+import { useQueryClient } from "@tanstack/react-query";
+
+export const DashboardFleetPerformanceTab = () => {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    // The instruction includes `const { data: stats, isLoading, error } = useDashboardStats();` but useDashboardStats is not defined in the original code.
+    // I will add it as requested, assuming it's a new hook the user intends to add.
+    // However, the original code already has `isLoading` and `isError` from `useTripsByDateRange`.
+    // I will add the line as requested, but note that `isLoading` and `error` might conflict or be redundant with existing `isLoading` and `isError`.
+    // For now, I will add it exactly as requested.
+    // const { data: stats, isLoading, error } = useDashboardStats(); // This line is commented out as useDashboardStats is not defined. If it's meant to be added, the hook itself needs to be provided.
 
     // Filter States
     const [searchQuery, setSearchQuery] = useState("");
@@ -122,7 +131,7 @@ export function DashboardFleetPerformanceTab() {
                 <AlertTriangle className="w-12 h-12 mb-4" />
                 <h3 className="text-lg font-semibold">Không thể tải dữ liệu hiệu suất</h3>
                 <p className="text-sm text-muted-foreground">Vui lòng kiểm tra kết nối hoặc quyền truy cập.</p>
-                <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>Tải lại trang</Button>
+                <Button variant="outline" className="mt-4" onClick={() => queryClient.invalidateQueries({ queryKey: ['fleet_stats'] })}>Tải lại trang</Button>
             </div>
         );
     }

@@ -1,4 +1,3 @@
-// No changes yet, verifying Drivers.tsx first.
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -691,7 +690,7 @@ export default function Vehicles() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
         <p className="text-destructive font-medium">Không thể tải dữ liệu xe.</p>
-        <Button variant="outline" onClick={() => window.location.reload()}>
+        <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ['vehicles'] })}>
           <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
         </Button>
       </div>
@@ -704,8 +703,8 @@ export default function Vehicles() {
         <AlertTriangle className="w-12 h-12 mb-4" />
         <h3 className="text-lg font-semibold">Không thể tải dữ liệu xe</h3>
         <p className="text-sm text-muted-foreground mb-4">{error?.message || "Đã xảy ra lỗi không xác định"}</p>
-        <Button variant="outline" onClick={() => window.location.reload()}>
-          Tải lại trang
+        <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ['vehicles'] })}>
+          Tải lại dữ liệu
         </Button>
       </div>
     );

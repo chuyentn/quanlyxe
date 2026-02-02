@@ -159,11 +159,11 @@ export default function Maintenance() {
     setDialogOpen(true);
   };
 
-  const handleDeleteClick = (e: React.MouseEvent, order: Maintenance) => {
+  const handleDeleteClick = useCallback((e: React.MouseEvent, order: Maintenance) => {
     e.stopPropagation();
     setSelectedOrder(order);
     setDeleteDialogOpen(true);
-  };
+  }, []);
 
   const handleConfirmDelete = async () => {
     if (!selectedOrder) return;

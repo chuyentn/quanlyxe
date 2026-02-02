@@ -282,7 +282,7 @@ export default function Drivers() {
           driver_code: formattedData.driver_code || `DRV-${Date.now()}`,
           full_name: formattedData.full_name || 'Unknown',
           ...formattedData,
-        } as any);
+        } as unknown as Database['public']['Tables']['drivers']['Insert']);
       }
       setDialogOpen(false);
     } catch (error) {
@@ -533,7 +533,7 @@ export default function Drivers() {
       header: 'Xe phân công',
       width: '160px',
       render: (value, row) => {
-        const joined = (row as any).assigned_vehicle;
+        const joined = (row as Driver & { assigned_vehicle?: { vehicle_code?: string; license_plate?: string } }).assigned_vehicle;
         if (joined && joined.vehicle_code && joined.license_plate) {
           return <span className="font-mono text-sm">{joined.vehicle_code} – {joined.license_plate}</span>;
         }
@@ -613,7 +613,7 @@ export default function Drivers() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
         <p className="text-destructive font-medium">Không thể tải dữ liệu tài xế.</p>
-        <Button variant="outline" onClick={() => window.location.reload()}>
+        <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ['drivers'] })}>
           <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
         </Button>
       </div>

@@ -550,7 +550,7 @@ export default function Customers() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] gap-4">
         <p className="text-destructive font-medium">Không thể tải dữ liệu khách hàng.</p>
-        <Button variant="outline" onClick={() => window.location.reload()}>
+        <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ['customers'] })}>
           <RefreshCw className="w-4 h-4 mr-2" /> Thử lại
         </Button>
       </div>

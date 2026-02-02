@@ -5,14 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { DashboardTripRow } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useTrips } from "@/hooks/useTrips";
+// import { useRecentTrips } from "@/hooks/useRecentTrips"; // Removed
 import { DashboardFilterBar } from "@/components/dashboard/DashboardFilterBar";
 import { startOfMonth, endOfMonth, parseISO } from "date-fns";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 
-export function DashboardTripsTab() {
+export const DashboardTripsTab = () => {
     const navigate = useNavigate();
-    const { data: trips, isLoading, isError } = useTrips();
+    const queryClient = useQueryClient();
+    const { data: trips, isLoading, isError, error } = useTrips();
 
     // Filter States
     const [searchQuery, setSearchQuery] = useState("");
@@ -64,6 +67,10 @@ export function DashboardTripsTab() {
 
                 return true;
             })
+            .sort((a, b) => { // Sort by date desc
+                return new Date(b.departure_date || '').getTime() - new Date(a.departure_date || '').getTime();
+            })
+            .slice(0, 5) // Limit to 5
             .map(trip => {
                 // Determine financial status
                 const revenue = (trip.freight_revenue || 0) + (trip.additional_charges || 0);
@@ -126,7 +133,7 @@ export function DashboardTripsTab() {
                 <AlertTriangle className="w-12 h-12 mb-4" />
                 <h3 className="text-lg font-semibold">Không thể tải dữ liệu chuyến đi</h3>
                 <p className="text-sm text-muted-foreground">Vui lòng kiểm tra kết nối hoặc quyền truy cập.</p>
-                <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>Tải lại trang</Button>
+                <Button variant="outline" className="mt-4" onClick={() => queryClient.invalidateQueries({ queryKey: ['trips'] })}>Tải lại trang</Button>
             </div>
         );
     }

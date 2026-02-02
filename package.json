@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
     "db:init": "node scripts/init-db.js",
     "db:push": "supabase db push",
     "db:pull": "supabase db pull",
